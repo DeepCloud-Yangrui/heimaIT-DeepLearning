@@ -6,7 +6,6 @@
 有dim参数的：sum() max() min() mean()        dim=0表示对列操作，dim=1表示对行操作
 """
 import torch
-
 # 1. 定义张量
 t1 = torch.tensor([
     [1, 2, 3],
