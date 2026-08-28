@@ -1,4 +1,6 @@
 # 导入相关模块
+from cProfile import label
+
 import torch
 from pandas.core.common import random_state
 from torch.utils.data import TensorDataset  # 构造数据集对象
@@ -82,6 +84,32 @@ def train(x, y, coef):
     print(f'模型参数为：权重：{model.weight},偏置：{model.bias}')
 
     # 8. 绘制损失曲线
+    # 8.1 绘制损失曲线
+    #               100轮            每轮的平均损失值
+    plt.plot(range(epochs), loss_list)
+    plt.title('损失值曲线的变化图')
+    plt.grid()
+    plt.show()
+
+    # 9. 绘制预测值和真实值的关系
+    # 9.1 绘制样本点分布情况
+    plt.scatter(x, y)
+    # 9.2 绘制训练模型的预测值
+    # x: 100个样本点的特征
+    y_pred=torch.tensor(data=[v* model.weight+model.bias for v in x])
+    # 9.3 计算真实值
+    y_true=torch.tensor(data=[v* coef +14.5 for v in x])
+    # 9.4 绘制预测值和真实值的折线图
+    plt.plot(x,y_pred,color='red',label='预测值')
+    plt.plot(x,y_true,color='blue',label='真实值')
+    # 9.5 图例
+    plt.legend()
+    plt.grid()
+    # 9.6 显示
+    plt.show()
+
+    plt.show()
+
 # 3. 测试
 if __name__ == '__main__':
     # 3.1 创建数据集
